@@ -4,7 +4,7 @@ st.markdown(
     <style>
     .stApp {
         background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-        url("https://www.freepik.com/free-ai-image/black-white-photo-brandenburg-gate-night_42648687.htm#fromView=search&page=1&position=6&uuid=3e7b2a5f-6f0b-4891-9300-becc0f35a46f&query=Berlin");
+        url("https://images.unsplash.com/photo-1560969184-10fe8719e047");
         background-size: cover;
         background-attachment: fixed;
     }
