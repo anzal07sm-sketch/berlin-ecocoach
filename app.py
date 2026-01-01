@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Berlin EcoCoach AI", page_icon="🌍")
 
 st.title("🌍 Berlin EcoCoach AI")
-st.write(" New Year, Same BVG?🎆 Stop guessing if your ride home from the Berghain queue was a carbon sin. let's check your green street-cred in 5 seconds flat and start 2026 as a climate loving legend! 💚🌱♻️")
+st.write(" New Year, Same BVG?🎆 Stop guessing if your ride home from the Berghain queue was a carbon sin. Let's check your green street-cred in 5 seconds flat and start 2026 as a climate loving legend! 💚🌱♻️")
 
 st.write("### Tell me your daily habits:")
 transport = st.selectbox("Your main transport?", ["car", "bus", "train", "bike", "walk"])
