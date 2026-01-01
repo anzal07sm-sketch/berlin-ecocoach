@@ -1,24 +1,30 @@
 import streamlit as st
 st.markdown(
     """
-    /* This changes the main title size */
-    h1 {
-        font-size: 3.5rem !important;
-        font-weight: 700 !important;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Makes it pop! */
-    }
-    
-    /* This changes the "Tell me your daily habits" size */
-    h2, h3 {
-        font-size: 1.8rem !important;
-        margin-top: 20px !important;
-    }
+    <style>
+    /* This sets the background and dark overlay */
     .stApp {
         background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-        url("https://images.unsplash.com/photo-1560969184-10fe8719e047");
+        url("https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=2070&auto=format&fit=crop");
         background-size: cover;
         background-attachment: fixed;
     }
+
+    /* This makes your text big and white */
+    h1 {
+        font-size: 3.5rem !important;
+        font-weight: 700 !important;
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    h2, h3, p, label {
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)    }
     /* This part makes your text easier to read on a photo */
     .stMarkdown, .stHeader, p, h1, h2, h3 {
         color: white !important;
@@ -29,7 +35,7 @@ st.markdown(
 )
 st.set_page_config(page_title="Berlin EcoCoach AI", page_icon="🌿")
 
-st.title("🌍 Berlin EcoCoach AI")
+st.title(" 🌿Berlin EcoCoach AI")
 st.write(" New Year, Same BVG? Stop guessing if your ride home from the Berghain queue was a carbon sin. Let's check your green street-cred in 5 seconds flat and start 2026 as a climate loving legend! 💚")
 
 st.write("### Tell me your daily habits:")
