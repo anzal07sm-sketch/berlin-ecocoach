@@ -7,8 +7,8 @@ st.write(" New Year, Same BVG?🎆 Stop guessing if your ride home from the Berg
 
 st.write("### Tell me your daily habits:")
 transport = st.selectbox("Your main transport?", ["car", "bus", "train", "bike", "walk"])
-distance = st.number_input("Daily distance (km)?", min_value=0.0, value=15.0)
-electricity = st.number_input("Daily home electricity (kWh)?", min_value=0.0, value=8.0)
+distance = st.number_input("Daily distance (km)?", min_value=0.0, value=0.0)
+electricity = st.number_input("Daily home electricity (kWh)?", min_value=0.0, value=0.0)
 
 if st.button("Calculate my footprint! 🚀"):
     co2_per_km = {"car": 0.17, "bus": 0.05, "train": 0.03, "bike": 0.00, "walk": 0.00}
@@ -28,7 +28,7 @@ if st.button("Calculate my footprint! 🚀"):
     if transport == "car":
         save = (0.17 - 0.03) * distance
         st.write(f"→ Take train/U-Bahn: Save **{save:.2f} kg** today!")
-    st.write("→ Turn off lights/TV/charger when not use!")
+    st.write("→ Turn off lights/TV/charger when not in use!")
     
     st.write("Share with friends – make Berlin greener together! 🚲")
     st.balloons()
