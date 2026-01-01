@@ -1,5 +1,21 @@
 import streamlit as st
-
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url("https://www.freepik.com/free-ai-image/black-white-photo-brandenburg-gate-night_42648687.htm#fromView=search&page=1&position=6&uuid=3e7b2a5f-6f0b-4891-9300-becc0f35a46f&query=Berlin");
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    /* This part makes your text easier to read on a photo */
+    .stMarkdown, .stHeader, p, h1, h2, h3 {
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.set_page_config(page_title="Berlin EcoCoach AI", page_icon="🌍")
 
 st.title("🌍 Berlin EcoCoach AI")
