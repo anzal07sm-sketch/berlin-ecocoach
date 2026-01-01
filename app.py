@@ -28,7 +28,7 @@ st.markdown(
 
 # 2. App Title and Inputs
 st.title("Berlin EcoCoach AI")
-st.write("New Year, Same BVG? 🌱 Start 2026 as a climate loving legend!")
+st.write("New Year, Same BVG? Start 2026 as a climate loving legend🌿!")
 
 transport = st.selectbox("Your main transport?", ["car", "bus", "train", "bike"])
 distance = st.number_input("Daily distance (km)?", min_value=0.0, value=0.0)
