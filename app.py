@@ -2,15 +2,13 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* This sets the background and dark overlay */
     .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
         url("https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=2070&auto=format&fit=crop");
         background-size: cover;
         background-attachment: fixed;
     }
 
-    /* This makes your text big and white */
     h1 {
         font-size: 3.5rem !important;
         font-weight: 700 !important;
@@ -23,6 +21,8 @@ st.markdown(
     }
     </style>
     """,
+    unsafe_allow_html=True
+)
     unsafe_allow_html=True
 )    }
     /* This part makes your text easier to read on a photo */
