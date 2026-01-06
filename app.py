@@ -2,151 +2,166 @@ import streamlit as st
 import pandas as pd
 
 # 1. PAGE SETUP
-st.set_page_config(page_title="Berlin EcoCoach AI", layout="centered")
+st.set_page_config(page_title="Berlin Eco-Coach AI", layout="centered")
 
-# 2. SESSION MEMORY
+# 2. SESSION MEMORY 
 if 'trip_history' not in st.session_state:
     st.session_state.trip_history = []
 
-# 3. ULTIMATE CLUB UI CSS 
+# 3. PERFECT ALIGNMENT & CLUB BACKGROUND CSS
 st.markdown("""
     <style>
-    /* Dark Immersive Background */
+    /* Full Page Background */
     .stApp {
-        background-color: #0d0216 !important;
-        background-image: 
-            linear-gradient(135deg, transparent 40%, #bf00ff1a 45%, #bf00ff1a 55%, transparent 60%),
-            linear-gradient(45deg, transparent 40%, #00ffff1a 45%, #00ffff1a 55%, transparent 60%);
-        background-size: cover;
+        background: radial-gradient(circle at center, #1b0238 0%, #05010a 100%) !important;
+        background-attachment: fixed;
         color: #FFFFFF !important;
     }
 
-    /* Hide Streamlit elements that create 'empty bars' */
+    /* Hide Streamlit default clutter */
     header, footer, .stDeployButton { visibility: hidden !important; }
-    [data-testid="stHeader"] {background: rgba(0,0,0,0) !important;}
-    label { display: none !important; }
-
+    .block-container { padding-top: 1.5rem !important; }
+    
+    /* Neon Header Styling */
     .app-title {
         text-align: center;
         letter-spacing: 2px;
         font-size: 14px;
         font-weight: bold;
         text-transform: uppercase;
-        margin-bottom: 20px;
+        color: rgba(0, 255, 204, 0.8);
+        margin-bottom: 30px;
     }
 
-    /* The Score Display at the Top */
+    /* Big Neon Score */
     .score-container {
         text-align: center;
-        padding: 30px 0;
+        padding: 20px 0;
+        margin-bottom: 20px;
     }
     .main-score {
-        font-size: 60px;
+        font-size: 68px;
         font-weight: 800;
         margin: 0;
-        background: -webkit-linear-gradient(#fff, #00ffff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #ffffff;
+        text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
     }
     .sub-score {
-        color: #efefef;
-        font-size: 18px;
-        margin-top: 5px;
+        color: #ff00ff;
+        font-size: 20px;
+        font-weight: bold;
+        text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
     }
 
-    /* Cards */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(15px);
-        border-radius: 18px;
-        padding: 20px;
+    /* Clean Card Styling for Inputs */
+    [data-testid="column"] {
+        background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
     }
-    
-    .card-header { font-weight: bold; font-size: 16px; margin-bottom: 10px; color: #00ffff; }
 
-    /* The 'Generate Score' Button */
+    /* The 'Generate' Button */
     div.stButton > button {
-        background: linear-gradient(90deg, #00ffff, #0099ff) !important;
+        background: linear-gradient(90deg, #00ffff, #00d4ff) !important;
         color: #000 !important;
         border: none !important;
         width: 100%;
         border-radius: 50px !important;
         font-weight: 900 !important;
-        letter-spacing: 1.5px;
         padding: 15px 0 !important;
-        box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
-        margin-top: 20px;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        margin-top: 40px;
+        transition: 0.3s;
+    }
+    div.stButton > button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
     }
 
-    /* Social Icons */
+    /* Social Bar */
     .social-footer {
         display: flex;
         justify-content: center;
-        gap: 20px;
-        margin-top: 30px;
+        align-items: center;
+        gap: 25px;
+        margin-top: 40px;
+        color: #00ffff;
         font-size: 20px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 4. LANGUAGE SELECTOR 
-lang = st.selectbox("Language", ["English", "Deutsch"], key="lang")
+# 4. TOP NAV (Language)
+lang = st.selectbox("Language / Sprache", ["English", "Deutsch"], label_visibility="collapsed")
 
-# 5. UI CONTENT
 st.markdown('<div class="app-title">BERLIN ECO-COACH AI</div>', unsafe_allow_html=True)
 
-# 6. INPUT LOGIC
+# 5. INPUT GRID 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown('<div class="glass-card"><div class="card-header">Travel</div></div>', unsafe_allow_html=True)
-    dist = st.number_input("Dist", min_value=0.0, step=0.1, key="d")
-    mode = st.selectbox("Mode", ["S-Bahn/U-Bahn", "Car", "Bike", "Walking"], key="m")
+    st.markdown("### 🚗 Travel")
+    dist = st.number_input("Distance (km)", min_value=0.0, step=0.1, key="dist_final")
+    mode = st.selectbox("Transport", ["U-Bahn / S-Bahn", "Car", "Bike", "Walking"], key="mode_final")
 
 with col2:
-    st.markdown('<div class="glass-card"><div class="card-header">Food</div></div>', unsafe_allow_html=True)
-    food_item = st.selectbox("Food", [
-        "Vegan Döner", "Chicken Döner", "Beef Döner", 
-        "Currywurst", "Beef Burger", "Halloumi Burger", "No Food"
-    ], key="f")
+    st.markdown("### 🍔 Food")
+    food_item = st.selectbox("Your Meal", [
+        "Vegan Döner", 
+        "Chicken Döner", 
+        "Beef Döner", 
+        "Currywurst", 
+        "Beef Burger", 
+        "Halloumi Burger"
+    ], key="food_final")
+    st.markdown("<br>", unsafe_allow_html=True) 
 
-generate = st.button("GENERATE SCORE")
+# 6. ACTION BUTTON
+calculate = st.button("GENERATE SCORE")
 
-# 7. CALCULATOR CALCULATION
-if generate:
-    # Math Factors
-    travel_map = {"Car": 0.2, "S-Bahn/U-Bahn": 0.03, "Bike": 0.0, "Walking": 0.0}
+# 7. LOGIC & RESULT RENDERING
+
+res_co2 = 0.0
+doner_val = 0.0
+
+if calculate:
+    # Calculations
+    travel_map = {"Car": 0.2, "U-Bahn / S-Bahn": 0.03, "Bike": 0.0, "Walking": 0.0}
     food_map = {
         "Vegan Döner": 0.1, "Chicken Döner": 2.2, "Beef Döner": 4.5,
-        "Currywurst": 2.1, "Beef Burger": 3.8, "Halloumi Burger": 1.2, "No Food": 0.0
+        "Currywurst": 2.1, "Beef Burger": 3.8, "Halloumi Burger": 1.2
     }
     
-    total_co2 = (dist * travel_map[mode]) + food_map[food_item]
-    doners_saved = total_co2 / 4.5
+    res_co2 = (dist * travel_map[mode]) + food_map[food_item]
+    doner_val = res_co2 / 4.5 # 1 Beef Doner = 4.5kg CO2
+    
+    # Save to history
+    st.session_state.trip_history.append({
+        "Mode": mode, 
+        "Food": food_item, 
+        "CO2": round(res_co2, 2),
+        "Döner Units": round(doner_val, 2)
+    })
 
-    # Store in history
-    st.session_state.trip_history.append({"CO2": total_co2, "Döner": doners_saved})
-
-    # DISPLAY THE DYNAMIC SCORE 
-    st.markdown(f"""
-        <div class="score-container">
-            <h1 class="main-score">{total_co2:.1f} kg CO2</h1>
-            <p class="sub-score">{doners_saved:.1f} Döner Units Saved 🥙</p>
-        </div>
-        """, unsafe_allow_html=True)
+# THE HERO DISPLAY
+st.markdown(f"""
+    <div class="score-container">
+        <h1 class="main-score">{res_co2:.1f} kg CO2</h1>
+        <p class="sub-score">🥙 {doner_val:.1f} Döner Units</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # 8. SOCIAL FOOTER
 st.markdown("""
     <div class="social-footer">
         <span>💬</span> <span>🐦</span> <span>in</span>
-        <span style="font-size:12px; font-weight:bold; margin-left:10px;">SHARE ⚑</span>
+        <span style="font-size:12px; color:white; font-weight:bold; letter-spacing:1px; margin-left:10px;">SHARE ⚑</span>
     </div>
     """, unsafe_allow_html=True)
 
-# 9. HISTORY 
+# 9. ANALYTICS 
 if st.session_state.trip_history:
-    st.markdown("---")
-    st.write("### History Log")
-    st.dataframe(pd.DataFrame(st.session_state.trip_history), use_container_width=True)
+    with st.expander("View Daily History"):
+        st.table(pd.DataFrame(st.session_state.trip_history))
