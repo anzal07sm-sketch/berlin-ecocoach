@@ -86,7 +86,7 @@ st.markdown("""
     .stButton {
         display: flex;
         justify-content: center;
-        width: 100%;
+        width: 95%;
     }
 
     div.stButton > button {
