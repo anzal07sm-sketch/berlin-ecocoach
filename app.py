@@ -48,7 +48,7 @@ st.markdown("""
     }
 
     [data-testid="column"] {
-        width: 100% !important;
+        width: 90% !important;
         min-width: 0px !important;
         flex: 1 1 auto !important;
         background: rgba(0, 0, 0, 0.4) !important;
