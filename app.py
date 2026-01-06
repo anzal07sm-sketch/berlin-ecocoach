@@ -159,8 +159,8 @@ twitter_url = f"https://twitter.com/intent/tweet?text={encoded_text}"
 
 st.markdown(f"""
     <div class="social-bar">
-        <a href="{whatsapp_url}" target="_blank">💬</a>
-        <a href="{twitter_url}" target="_blank">🐦</a>
+        <a href="{whatsapp_url}" target="_blank"></a>
+        <a href="{twitter_url}" target="_blank"></a>
         <a href="#" style="font-size: 14px; font-weight: bold; margin-left: 20px;">{t['share']} ⚑</a>
     </div>
     """, unsafe_allow_html=True)
