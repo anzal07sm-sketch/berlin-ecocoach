@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 
 # 1. PAGE SETUP
-st.set_page_config(page_title="Berlin Eco-Coach AI", layout="centered")
+st.set_page_config(page_title="Berlin EcoCoach AI", layout="centered")
 
-# 2. SESSION MEMORY (Restoring the calculator functionality)
+# 2. SESSION MEMORY
 if 'trip_history' not in st.session_state:
     st.session_state.trip_history = []
 
-# 3. ULTIMATE CLUB UI CSS (Fixed for Logic)
+# 3. ULTIMATE CLUB UI CSS 
 st.markdown("""
     <style>
     /* Dark Immersive Background */
@@ -91,7 +91,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 4. LANGUAGE SELECTOR (Kept clean at top)
+# 4. LANGUAGE SELECTOR 
 lang = st.selectbox("Language", ["English", "Deutsch"], key="lang")
 
 # 5. UI CONTENT
@@ -129,7 +129,7 @@ if generate:
     # Store in history
     st.session_state.trip_history.append({"CO2": total_co2, "Döner": doners_saved})
 
-    # DISPLAY THE DYNAMIC SCORE (Replacing static numbers)
+    # DISPLAY THE DYNAMIC SCORE 
     st.markdown(f"""
         <div class="score-container">
             <h1 class="main-score">{total_co2:.1f} kg CO2</h1>
@@ -145,7 +145,7 @@ st.markdown("""
     </div>
     """, unsafe_allow_html=True)
 
-# 9. HISTORY (Only shows if there is data)
+# 9. HISTORY 
 if st.session_state.trip_history:
     st.markdown("---")
     st.write("### History Log")
