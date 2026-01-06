@@ -9,7 +9,6 @@ if 'trip_history' not in st.session_state:
     st.session_state.trip_history = []
 
 # 3. THE "CLUB MODE" ULTIMATE CSS
-# This fixes the background, removes the empty bars, and creates the neon glow
 st.markdown("""
     <style>
     /* 1. Immersive Club Background */
