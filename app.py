@@ -44,7 +44,7 @@ st.markdown("""
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         align-items: flex-end !important;
-        gap: 0.1rem !important;
+        gap: 10px !important;
     }
 
     [data-testid="column"] {
@@ -72,7 +72,25 @@ st.markdown("""
         text-transform: uppercase;
         margin-top: 27px !important; /* This aligns button with input boxes */
     }
+    /* This forces the button to fill its column and stay centered */
+div.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
 
+div.stButton > button {
+    background: linear-gradient(90deg, #00ffcc, #00d4ff) !important;
+    color: #000 !important;
+    width: 100% !important; 
+    display: block !important;
+    font-size: 11px !important; 
+    padding: 12px 0px !important;
+    margin-top: 27px !important; /* Keeps it level with the input boxes */
+    border-radius: 50px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+}
     div.stButton > button:hover {
         transform: scale(1.02);
         box-shadow: 0 0 50px rgba(0, 255, 204, 1) !important;
@@ -123,7 +141,7 @@ with col_top_2:
     meal = st.selectbox(ui["meal"], ["Vegan Döner", "Chicken Döner", "Beef Döner", "Beef Burger", "Veggie Burger", "Currywurst", "Club Mate"])
 
 # 6. CENTERED ROW 
-c1, c2, c3 = st.columns([1, 4, 1])
+c1, c2, c3 = st.columns([1.2, 2.3, 1.2])
 with c1:
     dist = st.number_input(ui["dist"], min_value=0.0, step=1.0, value=0.0)
 with c2:
