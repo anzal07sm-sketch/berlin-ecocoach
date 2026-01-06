@@ -44,11 +44,11 @@ st.markdown("""
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         align-items: flex-end !important;
-        gap: 0.5rem !important;
+        gap: 0.1rem !important;
     }
 
     [data-testid="column"] {
-        width: 90% !important;
+        width: 100% !important;
         min-width: 0px !important;
         flex: 1 1 auto !important;
         background: rgba(0, 0, 0, 0.4) !important;
@@ -123,7 +123,7 @@ with col_top_2:
     meal = st.selectbox(ui["meal"], ["Vegan Döner", "Chicken Döner", "Beef Döner", "Beef Burger", "Veggie Burger", "Currywurst", "Club Mate"])
 
 # 6. CENTERED ROW 
-c1, c2, c3 = st.columns([1, 1.8, 1])
+c1, c2, c3 = st.columns([1, 4, 1])
 with c1:
     dist = st.number_input(ui["dist"], min_value=0.0, step=1.0, value=0.0)
 with c2:
