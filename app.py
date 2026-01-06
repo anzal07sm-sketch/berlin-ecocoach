@@ -1,127 +1,138 @@
 import streamlit as st
 import pandas as pd
 
-# 1. PAGE CONFIGURATION
 st.set_page_config(page_title="EcoCoach Berlin", page_icon="🌱", layout="centered")
 
-# 2. SESSION STATE (Memory)
-# This keeps your trip history from disappearing when you click buttons
 if 'trip_history' not in st.session_state:
     st.session_state.trip_history = []
 
-# 3. NEON UI DESIGN
 st.markdown("""
     <style>
     .stApp {
-        background-color: #0E1117;
+        background: radial-gradient(circle at top, #1b2735 0%, #050505 100%);
         color: #FFFFFF;
     }
+    
     .main-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 20px;
         padding: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 20px;
+        border: 1px solid rgba(0, 255, 204, 0.3);
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+        margin-bottom: 25px;
+    }
+
+    h1, h2, h3 {
+        color: #00FFCC !important;
+        text-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #00FFCC !important;
+    }
+
+    .stButton>button {
+        background: linear-gradient(90deg, #00FFCC 0%, #0099FF 100%);
+        color: black !important;
+        font-weight: bold !important;
+        border: none !important;
+        border-radius: 10px !important;
+        transition: 0.3s;
+    }
+    .stButton>button:hover {
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+        transform: scale(1.02);
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 4. TRANSLATION DICTIONARY
 texts = {
     "English": {
         "title": "🌱 EcoCoach Berlin",
-        "sub": "Track your carbon footprint & save the planet.",
+        "sub": "Track your carbon footprint in Berlin's true currency.",
         "dist": "Distance traveled (km)",
         "mode": "Transport Mode",
         "btn": "LOG TRIP",
         "reset": "CLEAR HISTORY",
-        "result": "Trip Impact:",
-        "history_title": "📊 Your Trip History",
-        "total_saved": "Total CO2 tracked so far:"
+        "result": "Trip Impact",
+        "history_title": "📊 Analytics Dashboard",
+        "total_saved": "Total Carbon Footprint:"
     },
     "Deutsch": {
         "title": "🌱 EcoCoach Berlin",
-        "sub": "Verfolge deinen CO2-Fußabdruck und rette den Planeten.",
+        "sub": "Verfolge deinen CO2-Fußabdruck in Berlin.",
         "dist": "Reisestrecke (km)",
         "mode": "Verkehrsmittel",
         "btn": "TRIP LOGGEN",
         "reset": "HISTORIE LÖSCHEN",
-        "result": "Trip Impact:",
-        "history_title": "📊 Deine Reise-Historie",
-        "total_saved": "Gesamt CO2 getrackt:"
+        "result": "Trip Impact",
+        "history_title": "📊 Analytics Dashboard",
+        "total_saved": "Gesamt CO2-Fußabdruck:"
     }
 }
 
-# 5. SIDEBAR
 lang = st.sidebar.selectbox("Language / Sprache", ["English", "Deutsch"])
 t = texts[lang]
 
-# 6. MAIN UI
 st.title(t["title"])
-st.write(t["sub"])
+st.write(f"*{t['sub']}*")
 
-with st.container():
-    st.markdown('<div class="main-card">', unsafe_allow_html=True)
-    
-    dist = st.number_input(t["dist"], min_value=0.0, step=0.1)
-    mode = st.selectbox(t["mode"], ["U-Bahn / S-Bahn", "Car / Auto", "Bike / Fahrrad", "Walking / Laufen"])
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        calculate = st.button(t["btn"], use_container_width=True)
-    with col2:
-        if st.button(t["reset"], use_container_width=True):
-            st.session_state.trip_history = []
-            st.rerun()
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-card">', unsafe_allow_html=True)
+dist = st.number_input(t["dist"], min_value=0.0, step=0.1)
+mode = st.selectbox(t["mode"], ["U-Bahn / S-Bahn", "Car / Auto", "Bike / Fahrrad", "Walking / Laufen"])
 
-# 7. LOGIC & DATA STORAGE
+col1, col2 = st.columns(2)
+with col1:
+    calculate = st.button(t["btn"], use_container_width=True)
+with col2:
+    if st.button(t["reset"], use_container_width=True):
+        st.session_state.trip_history = []
+        st.rerun()
+st.markdown('</div>', unsafe_allow_html=True)
+
 if calculate:
-    # Calculation Logic
     if mode == "Car / Auto":
         co2 = dist * 0.2
     elif mode == "Bike / Fahrrad" or mode == "Walking / Laufen":
-        co2 = 0.0  # Zero emissions!
+        co2 = 0.0
     else:
         co2 = dist * 0.03
     
-    # Save trip to session memory
-    new_trip = {"Mode": mode, "Distance (km)": dist, "CO2 (kg)": round(co2, 2)}
+    new_trip = {"Mode": mode, "Distance": dist, "CO2 (kg)": round(co2, 2)}
     st.session_state.trip_history.append(new_trip)
     
-    # Results Display
-    st.subheader(t["result"])
-    st.metric("Current Trip CO2", f"{co2:.2f} kg")
-
-    # Ranking Logic
+    st.markdown(f"### {t['result']}")
+    m_col1, m_col2 = st.columns(2)
+    m_col1.metric("Trip CO2", f"{co2:.2f} kg")
+    
     if co2 == 0:
-        rank, color = "ECO HERO 🌿", "#00FFCC"
+        rank, color = "ECO HERO 👑", "#00FFCC"
         st.balloons()
     elif co2 < 2.0:
-        rank, color = "GREEN TRAVELLER 🚲", "#FFD700"
+        rank, color = "CITY SURVIVOR 🚲", "#FFD700"
     else:
-        rank, color = "HEAVY FOOTPRINT 🚗", "#FF0055"
+        rank, color = "CO2 GIANT 🚗", "#FF0055"
         
     st.markdown(f"""
-        <div style="padding:20px; border:2px solid {color}; border-radius:10px; text-align:center;">
+        <div style="padding:15px; border:2px solid {color}; border-radius:10px; text-align:center; background: rgba(0,0,0,0.3);">
             <h2 style="color:{color}; margin:0;">{rank}</h2>
         </div>
     """, unsafe_allow_html=True)
 
-# 8. DATA ANALYTICS TABLE (Intermediate Level)
 if st.session_state.trip_history:
-    st.divider()
+    st.markdown("<br><hr>", unsafe_allow_html=True)
     st.subheader(t["history_title"])
     
-    # Convert list to Pandas DataFrame
     df_history = pd.DataFrame(st.session_state.trip_history)
-    
-    # Show total summary
     total_co2 = df_history["CO2 (kg)"].sum()
-    st.info(f"{t['total_saved']} **{total_co2:.2f} kg**")
     
-    # Display the table
+    st.markdown(f"""
+        <div style="background: rgba(0, 255, 204, 0.1); padding: 15px; border-radius: 10px; border-left: 5px solid #00FFCC; margin-bottom: 20px;">
+            <p style="margin:0; font-size: 0.9rem; color: #FFFFFF;">{t['total_saved']}</p>
+            <h2 style="margin:0; color: #00FFCC;">{total_co2:.2f} kg</h2>
+        </div>
+    """, unsafe_allow_html=True)
+    
     st.dataframe(df_history, use_container_width=True)
