@@ -55,7 +55,7 @@ st.markdown("""
 # 4. CONTENT
 texts = {
     "English": {
-        "title": "🌱 EcoCoach Berlin",
+        "title": "🌿 EcoCoach Berlin",
         "sub": "Track your carbon footprint in Berlin.",
         "dist": "Distance traveled (km)",
         "mode": "Transport Mode",
@@ -64,7 +64,7 @@ texts = {
         "total": "Total Carbon Footprint:"
     },
     "Deutsch": {
-        "title": "🌱 EcoCoach Berlin",
+        "title": "🌿 EcoCoach Berlin",
         "sub": "Verfolge deinen CO2-Fußabdruck in Berlin.",
         "dist": "Reisestrecke (km)",
         "mode": "Verkehrsmittel",
