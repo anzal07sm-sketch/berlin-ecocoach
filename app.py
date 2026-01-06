@@ -68,7 +68,7 @@ st.markdown("""
         font-weight: 900 !important;
         padding: 12px 0 !important;
         box-shadow: 0 0 30px rgba(0, 255, 204, 0.8) !important;
-        font-size: 11px !important;
+        font-size: 9px !important;
         text-transform: uppercase;
         margin-top: 27px !important; /* This aligns button with input boxes */
     }
@@ -123,7 +123,7 @@ with col_top_2:
     meal = st.selectbox(ui["meal"], ["Vegan Döner", "Chicken Döner", "Beef Döner", "Beef Burger", "Veggie Burger", "Currywurst", "Club Mate"])
 
 # 6. CENTERED ROW 
-c1, c2, c3 = st.columns([1, 1.6, 1])
+c1, c2, c3 = st.columns([1, 1.8, 1])
 with c1:
     dist = st.number_input(ui["dist"], min_value=0.0, step=1.0, value=0.0)
 with c2:
