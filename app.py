@@ -59,14 +59,12 @@ texts = {
     }
 }
 
-# --- THE FIX: MOVE TO SIDEBAR ---
 with st.sidebar:
     lang = st.selectbox("Language / Sprache", ["English", "Deutsch"])
 
 t = texts[lang]
 
 st.title(f"🌿 {t['title']}")
-st.write(f"*{t['sub']}*")
 
 st.markdown('<div class="main-card">', unsafe_allow_html=True)
 dist = st.number_input(t["dist"], min_value=0.0, step=0.1)
